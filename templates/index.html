@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elephant Intrusion Detection</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Elephant Intrusion Detection</h1>
+    <div class="container">
+      <h2>Live Feed</h2>
+      <img src="{{ url_for('video_feed') }}" width="640" height="480" />
+    </div>
+    <div class="container">
+      <h2>Detection History</h2>
+      <ul id="detection-history"></ul>
+      <button onclick="location.href='{{ url_for('get_detection_history') }}'">
+        View Full Detection History
+      </button>
+    </div>
+    <div class="container links-container">
+      <a href="{{ url_for('analytics') }}">Go to Analytics Dashboard</a>
+      <a href="{{ url_for('map_view') }}">View Map</a>
+    </div>
+    <script>
+      var socket = io.connect(
+        "http://" + document.domain + ":" + location.port
+      );
+      socket.on("new_detection", function (data) {
+        var historyList = document.getElementById("detection-history");
+        var newItem = document.createElement("li");
+        newItem.textContent = data.time;
+        historyList.appendChild(newItem);
+      });
+    </script>
+    <footer>
+      <p>&copy; 2024 All rights reserved | AtupakisyeStephen</p>
+    </footer>
+  </body>
+</html>

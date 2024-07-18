@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Analytics Dashboard</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Analytics Dashboard</h1>
+    <div class="container">
+      <h2>Detection Logs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for detection in detection_data %}
+          <tr>
+            <td>{{ detection.Timestamp }}</td>
+            <td>{{ detection.Details }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <footer>
+      <p>&copy; 2024 All rights reserved | AtupakisyeStephen</p>
+    </footer>
+  </body>
+</html>

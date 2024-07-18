@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Detection Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Detection Map</h1>
+    <div id="map" style="height: 600px; width: 80%"></div>
+    <script>
+      var map = L.map("map").setView([-1.286389, 36.817223], 10); // Example coordinates
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      // Fetch detection history and plot on the map
+      fetch('{{ url_for("get_detection_history") }}')
+        .then((response) => response.json())
+        .then((data) => {
+          data.forEach((detection) => {
+            L.marker([detection.latitude, detection.longitude])
+              .addTo(map)
+              .bindPopup(`<b>Detection Time:</b> ${detection.time}`);
+          });
+        });
+    </script>
+    <footer>
+      <p>&copy; 2024 All rights reserved | AtupakisyeStephen</p>
+    </footer>
+  </body>
+</html>
