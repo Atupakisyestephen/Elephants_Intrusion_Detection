@@ -39,6 +39,9 @@ This project uses the YOLOv8 model to detect elephants in a video stream and tri
    python main.py
 2. Open your web browser and go to http://127.0.0.1:5000/ to access the web interface.
 
+   ![elephant1](https://github.com/user-attachments/assets/d4c8d9e5-2feb-4a64-b47d-3dcc59ef4551)
+
+
    Project Structure
 main.py: The main Flask application file.
 templates/: Contains HTML templates for the web interface.
